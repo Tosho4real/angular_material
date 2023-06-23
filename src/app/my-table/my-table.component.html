@@ -1,0 +1,40 @@
+<h1>Custom Table</h1>
+
+<div class="search-bar">
+  <form [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+    <input type="text" placeholder="Search..." formControlName="searchValue" />
+  </form>
+</div>
+<table class="users-table">
+  <thead>
+    <tr>
+      <th
+        *ngFor="let column of columns"
+        (click)="sortTable(column)"
+        class="users-table-cell"
+      >
+        {{ capitalize(column) }}
+
+        <!-- <ng-container *ngif="isDescSorting(column)">
+          <span>&downarrow;</span>
+        </ng-container> -->
+
+        <ng-container *ngIf="isAscSorting(column)">
+          <span>&uparrow;</span>
+        </ng-container>
+
+        <ng-container *ngIf="isDescSorting(column)">
+          <span>&downarrow;</span>
+        </ng-container>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td *ngFor="let column of columns" class="users-table-cell">
+        {{ user[column] }}
+      </td>
+    </tr>
+  </tbody>
+</table>
